@@ -47,4 +47,18 @@ jobs:
       run: npm run start &
     - name: run UI tests
       run: npm run test:ui
+
+  deploy_prod:
+
+    runs-on: ubuntu-latest
+    needs: run_ui_tests
+
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
     
+# RENDER SERVICE ID - the part of the link from the webservice settings
+# RENDER API KEY - the key from the Render account settings
